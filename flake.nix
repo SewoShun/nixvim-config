@@ -54,6 +54,7 @@
               };
               modules = [
                 self.nixvimModules.default
+                ./plugins/default.nix
               ];
             };
           };

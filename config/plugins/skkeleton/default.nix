@@ -1,39 +1,31 @@
 {
   pkgs,
-  lib,
   ...
 }:
 {
-  extraPlugins = with pkgs.vimPlugins; [
-    skkeleton
-  ];
+  imports = [ ./azik_kanatable.nix ];
 
-  extraConfigVim =
-    let
-      azik_kanatable = import ./azik_kanatable.nix { inherit lib; };
-    in
-    # vim
-    ''
-      ${azik_kanatable}
+  plugins.skkeleton = {
+    enable = true;
+    settings = {
+      globalDictionaries = with pkgs.skkDictionaries; [
+        "${l}/share/skk/SKK-JISYO.L"
+        "${jinmei}/share/skk/SKK-JISYO.jinmei"
+        "${fullname}/share/skk/SKK-JISYO.fullname"
+        "${propernoun}/share/skk/SKK-JISYO.propernoun"
+        "${geo}/share/skk/SKK-JISYO.geo"
+      ];
 
-      call skkeleton#config({
-      \ 'globalDictionaries': [
-      \   ['~/.skk/SKK-JISYO.L', 'euc-jp'],
-      \   '~/.skk/SKK-JISYO.jinmei',
-      \   '~/.skk/SKK-JISYO.fullname',
-      \   '~/.skk/SKK-JISYO.propernoun',
-      \   '~/.skk/SKK-JISYO.geo',
-      \   '~/.skk/SKK-JISYO.station'],
-      \ 'eggLikeNewline': v:true,
-      \ 'kanaTable': 'azik',
-      \ 'markerHenkan': '▽ ',
-      \ 'markerHenkanSelect': '▼ ',
-      \ 'sources': [
-      \   'skk_dictionary',
-      \   'google_japanese_input',
-      \ ],
-      \ })
-    '';
+      kanaTable = "azik";
+      eggLikeNewline = true;
+      markerHenkan = "▽ ";
+      markerHenkanSelect = "▼ ";
+      sources = [
+        "skk_dictionary"
+        "google_japanese_input"
+      ];
+    };
+  };
 
   keymaps = [
     {

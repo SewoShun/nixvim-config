@@ -20,7 +20,6 @@
   extraPlugins = with pkgs.vimPlugins; [
     atone-nvim
     blink-indent
-    denops-vim
     jj-nvim
     lazyjj-nvim
   ];

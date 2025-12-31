@@ -388,18 +388,10 @@ let
 
   complete_map = vowel_map // base_map // hatuon_map // double_vowel_map // other_map;
 
-  vim_table = builtins.concatStringsSep "\n" (
-    lib.attrsets.mapAttrsToList (
-      name: value:
-      "\\ '${name}': ${
-        if (builtins.isList value) then "['${builtins.elemAt value 0}']" else "'${value}'"
-      },"
-    ) complete_map
-  );
-  # vim
 in
-''
-  call skkeleton#register_kanatable('azik', {
-  ${vim_table}
-  \ }, v:true)
-''
+{
+  plugins.skkeleton.kanatables.azik = {
+    create = true;
+    table = complete_map;
+  };
+}
