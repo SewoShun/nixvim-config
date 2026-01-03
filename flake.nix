@@ -36,7 +36,8 @@
       };
 
       flake.nixvimModules = {
-        default = ./config;
+        default = ./config/default;
+        nvim-ime = ./config/nvim-ime;
       };
 
       perSystem =
@@ -54,6 +55,17 @@
               };
               modules = [
                 self.nixvimModules.default
+                ./plugins/default.nix
+              ];
+            };
+
+            nvim-ime = inputs.nixvim.lib.evalNixvim {
+              inherit system;
+              extraSpecialArgs = {
+                inherit self;
+              };
+              modules = [
+                self.nixvimModules.nvim-ime
                 ./plugins/default.nix
               ];
             };

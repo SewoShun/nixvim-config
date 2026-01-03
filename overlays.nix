@@ -12,6 +12,7 @@
         { config, ... }:
         {
           neovim = config.packages.default;
+          nvim-ime = config.packages.nvim-ime;
         }
       );
     extraVimPlugins =
